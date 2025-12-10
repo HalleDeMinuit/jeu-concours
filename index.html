@@ -1,3 +1,6 @@
+Code gagnant discret 
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -78,15 +81,7 @@
       font-size: 0.95rem;
       line-height: 1.5;
       color: rgba(255, 255, 255, 0.78);
-      margin-bottom: 16px;
-    }
-
-    /* Compteur */
-    .counter {
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.95);
-      font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: 22px;
     }
 
     .info {
@@ -204,6 +199,20 @@
       box-shadow: 0 0 8px rgba(163, 123, 255, 0.5);
     }
 
+    /* 🔹 Petit rond doré discret = signe distinctif du QR gagnant */
+    .winner-dot {
+      position: absolute;
+      bottom: 10px;
+      right: 14px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffe49a 0, #f6c453 55%, #b88224 100%);
+      box-shadow: 0 0 6px rgba(255, 210, 120, 0.7);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
     @media (max-width: 480px) {
       .card {
         padding: 24px 18px 20px;
@@ -240,7 +249,7 @@
       }
     }
 
-    // Quand on refuse : on bloque la participation visuellement
+    // 🔹 Quand on refuse : on bloque la participation visuellement
     function refuseReglement() {
       const banner = document.getElementById("consent-banner");
       const card = document.querySelector(".card");
@@ -260,26 +269,6 @@
       }
     }
 
-    // Compteur simple côté front
-    let counterValue = 99;
-
-    function updateCounter() {
-      const el = document.getElementById("counter");
-      if (!el) return;
-      const suffix = counterValue > 1 ? " participations restantes" : " participation restante";
-      el.textContent = counterValue + suffix;
-    }
-
-    function startCounter() {
-      updateCounter();
-      setInterval(function () {
-        if (counterValue <= 0) return;
-        counterValue -= 10;
-        if (counterValue < 0) counterValue = 0;
-        updateCounter();
-      }, 600000); // 10 minutes
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
       const banner = document.getElementById("consent-banner");
       let accepted = false;
@@ -291,15 +280,15 @@
       if (!accepted) {
         banner.style.display = "block";
       }
-
-      // Lancement du compteur
-      startCounter();
     });
   </script>
 </head>
 <body>
   <div class="wrapper">
     <div class="card">
+
+      <!-- 🔹 Petit rond doré = QR gagnant (seulement sur cette version) -->
+      <div class="winner-dot"></div>
 
       <div class="badge">
         <span class="badge-dot"></span>
@@ -313,9 +302,6 @@
         et sera prise en compte lors de l’annonce officielle par Halles de Minuit x RG.card,
         une fois la totalité des QR codes distribués.
       </p>
-
-      <!-- 🔹 Compteur affiché juste ici -->
-      <p id="counter" class="counter">99 participations restantes</p>
 
       <p class="info">
         Pour connaître les modalités détaillées de fonctionnement, les conditions
