@@ -78,7 +78,15 @@
       font-size: 0.95rem;
       line-height: 1.5;
       color: rgba(255, 255, 255, 0.78);
-      margin-bottom: 22px;
+      margin-bottom: 16px;
+    }
+
+    /* 🔹 Compteur de participations */
+    .counter {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      margin-bottom: 10px;
     }
 
     .info {
@@ -252,6 +260,28 @@
       }
     }
 
+    /* 🔹 Compteur de participations – purement visuel côté front */
+    let counterValue = 99;
+    const COUNTER_STEP = 10;
+    const COUNTER_INTERVAL_MS = 600000; // 10 minutes en millisecondes
+
+    function updateCounterDisplay() {
+      const el = document.getElementById("counter");
+      if (!el) return;
+      const suffix = counterValue > 1 ? " participations restantes" : " participation restante";
+      el.textContent = counterValue + suffix;
+    }
+
+    function startCounter() {
+      updateCounterDisplay();
+      setInterval(function () {
+        if (counterValue <= 0) return;
+        counterValue -= COUNTER_STEP;
+        if (counterValue < 0) counterValue = 0;
+        updateCounterDisplay();
+      }, COUNTER_INTERVAL_MS);
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
       const banner = document.getElementById("consent-banner");
       let accepted = false;
@@ -263,6 +293,9 @@
       if (!accepted) {
         banner.style.display = "block";
       }
+
+      // 🔹 Lancement du compteur après chargement
+      startCounter();
     });
   </script>
 </head>
@@ -282,6 +315,9 @@
         et sera prise en compte lors de l’annonce officielle par Halles de Minuit x RG.card,
         une fois la totalité des QR codes distribués.
       </p>
+
+      <!-- 🔹 Compteur affiché ici -->
+      <p id="counter" class="counter">99 participations restantes</p>
 
       <p class="info">
         Pour connaître les modalités détaillées de fonctionnement, les conditions
