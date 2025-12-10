@@ -176,7 +176,7 @@
     .consent-actions {
       display: flex;
       justify-content: flex-end;
-      gap: 8px; /* léger écart entre les deux boutons */
+      gap: 8px;
     }
 
     .consent-button {
@@ -232,9 +232,24 @@
       }
     }
 
-    // 🔹 AJOUT : fonction pour revenir à la page précédente si on refuse
+    // 🔹 Quand on refuse : on bloque la participation visuellement
     function refuseReglement() {
-      window.history.back();
+      const banner = document.getElementById("consent-banner");
+      const card = document.querySelector(".card");
+      banner.style.display = "none";
+      if (card) {
+        card.innerHTML = `
+          <h1>Participation non enregistrée</h1>
+          <p class="subtitle">
+            Tu as choisi de refuser le règlement du jeu.<br>
+            Ta participation n’est donc pas prise en compte.
+          </p>
+          <p class="info">
+            Si tu changes d’avis, tu peux revenir sur cette page plus tard
+            et accepter le règlement pour participer.
+          </p>
+        `;
+      }
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -454,11 +469,9 @@
       Pour consulter le détail des conditions, tu peux ouvrir le règlement complet à tout moment.
     </div>
     <div class="consent-actions">
-      <!-- 🔹 BOUTON REFUSER QUI RENVOIE À LA PAGE PRÉCÉDENTE -->
       <button class="consent-button" onclick="refuseReglement()">
         Refuser
       </button>
-      <!-- 🔹 BOUTON ACCEPTER EXISTANT -->
       <button class="consent-button" onclick="acceptReglement()">
         J’ai lu et j’accepte le règlement du jeu
       </button>
