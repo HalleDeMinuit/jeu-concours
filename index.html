@@ -81,12 +81,12 @@
       margin-bottom: 16px;
     }
 
-    /* 🔹 Compteur de participations */
+    /* Compteur */
     .counter {
       font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(255, 255, 255, 0.95);
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .info {
@@ -240,7 +240,7 @@
       }
     }
 
-    // 🔹 Quand on refuse : on bloque la participation visuellement
+    // Quand on refuse : on bloque la participation visuellement
     function refuseReglement() {
       const banner = document.getElementById("consent-banner");
       const card = document.querySelector(".card");
@@ -260,12 +260,10 @@
       }
     }
 
-    /* 🔹 Compteur de participations – purement visuel côté front */
+    // Compteur simple côté front
     let counterValue = 99;
-    const COUNTER_STEP = 10;
-    const COUNTER_INTERVAL_MS = 600000; // 10 minutes en millisecondes
 
-    function updateCounterDisplay() {
+    function updateCounter() {
       const el = document.getElementById("counter");
       if (!el) return;
       const suffix = counterValue > 1 ? " participations restantes" : " participation restante";
@@ -273,13 +271,13 @@
     }
 
     function startCounter() {
-      updateCounterDisplay();
+      updateCounter();
       setInterval(function () {
         if (counterValue <= 0) return;
-        counterValue -= COUNTER_STEP;
+        counterValue -= 10;
         if (counterValue < 0) counterValue = 0;
-        updateCounterDisplay();
-      }, COUNTER_INTERVAL_MS);
+        updateCounter();
+      }, 600000); // 10 minutes
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -294,7 +292,7 @@
         banner.style.display = "block";
       }
 
-      // 🔹 Lancement du compteur après chargement
+      // Lancement du compteur
       startCounter();
     });
   </script>
@@ -316,7 +314,7 @@
         une fois la totalité des QR codes distribués.
       </p>
 
-      <!-- 🔹 Compteur affiché ici -->
+      <!-- 🔹 Compteur affiché juste ici -->
       <p id="counter" class="counter">99 participations restantes</p>
 
       <p class="info">
