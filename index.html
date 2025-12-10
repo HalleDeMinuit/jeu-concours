@@ -1,150 +1,457 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Jeu – Halles de Minuit x RG.card</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Jeu – Halles de Minuit x RG.card</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-    body {
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        radial-gradient(circle at top, #b388ff 0, transparent 50%),
-        radial-gradient(circle at bottom, #7c4dff 0, #130024 55%, #050010 100%);
-      color: #ffffff;
-    }
+    body {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top, #b388ff 0, transparent 50%),
+        radial-gradient(circle at bottom, #7c4dff 0, #130024 55%, #050010 100%);
+      color: #ffffff;
+    }
 
-    .wrapper {
-      padding: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
+    .wrapper {
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
 
-    .card {
-      width: 100%;
-      max-width: 420px;
-      padding: 28px 22px 24px;
-      border-radius: 24px;
-      background: rgba(10, 0, 35, 0.75);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow:
-        0 14px 40px rgba(0, 0, 0, 0.6),
-        0 0 22px rgba(165, 125, 255, 0.5);
-      text-align: center;
-    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      padding: 28px 22px 24px;
+      border-radius: 24px;
+      background: rgba(10, 0, 35, 0.75);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 14px 40px rgba(0, 0, 0, 0.6),
+        0 0 22px rgba(165, 125, 255, 0.5);
+      text-align: center;
+      position: relative;
+    }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 11px;
-      border-radius: 999px;
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: rgba(124, 77, 255, 0.14);
-      border: 1px solid rgba(180, 140, 255, 0.4);
-      margin-bottom: 18px;
-    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(124, 77, 255, 0.14);
+      border: 1px solid rgba(180, 140, 255, 0.4);
+      margin-bottom: 18px;
+    }
 
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #c5ff5a;
-      box-shadow: 0 0 8px rgba(197, 255, 90, 0.9);
-    }
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #c5ff5a;
+      box-shadow: 0 0 8px rgba(197, 255, 90, 0.9);
+    }
 
-    h1 {
-      font-size: 1.6rem;
-      line-height: 1.25;
-      margin-bottom: 12px;
-    }
+    h1 {
+      font-size: 1.6rem;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
 
-    .subtitle {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.78);
-      margin-bottom: 22px;
-    }
+    .subtitle {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.78);
+      margin-bottom: 22px;
+    }
 
-    .info {
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 18px;
-    }
+    .info {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 18px;
+    }
 
-    .rules-link {
-      font-size: 0.82rem;
-      color: #d0c4ff;
-      text-decoration: none;
-      display: inline-block;
-      border-bottom: 1px solid rgba(208, 196, 255, 0.6);
-      padding-bottom: 1px;
-      margin-top: 4px;
-      opacity: 0.9;
-    }
+    .rules-link {
+      font-size: 0.82rem;
+      color: #d0c4ff;
+      text-decoration: none;
+      display: inline-block;
+      border-bottom: 1px solid rgba(208, 196, 255, 0.6);
+      padding-bottom: 1px;
+      margin-top: 4px;
+      opacity: 0.9;
+      cursor: pointer;
+    }
 
-    .rules-link:hover {
-      opacity: 1;
-    }
+    .rules-link:hover {
+      opacity: 1;
+    }
 
-    @media (max-width: 480px) {
-      .card {
-        padding: 24px 18px 20px;
-        border-radius: 20px;
-      }
+    /* Bloc du règlement déroulant */
+    .rules-box {
+      margin-top: 22px;
+      padding: 16px 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      text-align: left;
+      max-height: 60vh;
+      overflow-y: auto;
+      display: none;
+    }
 
-      h1 {
-        font-size: 1.4rem;
-      }
+    .rules-box h2 {
+      font-size: 1.05rem;
+      margin: 10px 0 6px;
+      color: #e6ddff;
+    }
 
-      .subtitle {
-        font-size: 0.9rem;
-      }
-    }
-  </style>
+    .rules-box p {
+      font-size: 0.83rem;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .small-note {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-top: 10px;
+    }
+
+    .close-btn {
+      text-align: right;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+      color: #d0c4ff;
+      cursor: pointer;
+    }
+
+    /* Bandeau type “cookies” pour accepter le règlement */
+    .consent-banner {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+      width: min(480px, 94vw);
+      background: rgba(5, 0, 20, 0.92);
+      border-radius: 16px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.65),
+        0 0 16px rgba(165, 125, 255, 0.5);
+      display: none;
+      z-index: 50;
+    }
+
+    .consent-text {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.88);
+      margin-bottom: 8px;
+    }
+
+    .consent-text a {
+      color: #d0c4ff;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
+    .consent-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .consent-button {
+      font-size: 0.82rem;
+      border-radius: 999px;
+      padding: 6px 14px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #b388ff, #7c4dff);
+      color: #fff;
+      font-weight: 500;
+      box-shadow: 0 0 14px rgba(163, 123, 255, 0.7);
+    }
+
+    .consent-button:active {
+      transform: translateY(1px);
+      box-shadow: 0 0 8px rgba(163, 123, 255, 0.5);
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 24px 18px 20px;
+        border-radius: 20px;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      .subtitle {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+
+  <script>
+    function toggleRules() {
+      const box = document.getElementById("rules-box");
+      box.style.display = (box.style.display === "block") ? "none" : "block";
+
+      if (box.style.display === "block") {
+        box.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+
+    function acceptReglement() {
+      const banner = document.getElementById("consent-banner");
+      banner.style.display = "none";
+      try {
+        localStorage.setItem("hdm_rgcard_reglement_accepted", "1");
+      } catch (e) {
+        // si localStorage pas dispo, on ignore
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const banner = document.getElementById("consent-banner");
+      let accepted = false;
+      try {
+        accepted = localStorage.getItem("hdm_rgcard_reglement_accepted") === "1";
+      } catch (e) {
+        accepted = false;
+      }
+      if (!accepted) {
+        banner.style.display = "block";
+      }
+    });
+  </script>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="card">
+  <div class="wrapper">
+    <div class="card">
 
-      <div class="badge">
-        <span class="badge-dot"></span>
-        <span>Résultats en attente</span>
-      </div>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>Résultats en attente</span>
+      </div>
 
-      <h1>Les résultats du jeu seront dévoilés prochainement</h1>
+      <h1>Les résultats du jeu seront dévoilés prochainement</h1>
 
-      <p class="subtitle">
-        Garde bien ta canette et ton QR code : ta participation est enregistrée
-        et sera prise en compte lors de l’annonce officielle par Halles de Minuit x RG.card,
-        une fois la totalité des QR codes distribués.
-      </p>
+      <p class="subtitle">
+        Garde bien ta canette et ton QR code&nbsp;: ta participation est enregistrée
+        et sera prise en compte lors de l’annonce officielle par Halles de Minuit x RG.card,
+        une fois la totalité des QR codes distribués.
+      </p>
 
-      <p class="info">
-        Pour connaître l’ensemble des modalités de fonctionnement, les conditions
-        d’éligibilité et les détails relatifs au déroulement de l’opération,
-        merci de te référer au règlement complet du jeu.
-      </p>
+      <p class="info">
+        Pour connaître les modalités détaillées de fonctionnement, les conditions
+        d’éligibilité et l’ensemble des règles applicables à l’opération,
+        tu peux consulter le règlement complet du jeu.
+      </p>
 
-      <a class="rules-link" href="https://halledeminuit.github.io/reglement/">
-        Consulter le règlement complet du jeu
-      </a>
+      <span class="rules-link" onclick="toggleRules()">
+        Consulter le règlement complet du jeu
+      </span>
 
-    </div>
-  </div>
+      <!-- BLOC RÈGLEMENT COMPLET DÉROULANT -->
+      <div id="rules-box" class="rules-box">
+        <div class="close-btn" onclick="toggleRules()">Fermer ✕</div>
+
+        <h2>Règlement du jeu « Code Gagnant – Halles de Minuit x RG.card »</h2>
+
+        <p>
+          Le présent règlement est établi en référence aux dispositions applicables du Code de la consommation
+          (notamment les articles L.111-1, L.121-1 et L.121-2) et du Code de la sécurité intérieure
+          (notamment les articles L.322-1 et suivants) relatives à l’information du consommateur,
+          aux pratiques commerciales loyales et à l’encadrement des opérations assimilables à des loteries.
+        </p>
+
+        <h2>Article 1 – Organisateurs</h2>
+        <p>
+          Le jeu est organisé conjointement par :
+          <br><strong>Halles de Minuit</strong>, situé au
+          <em>58 Rue du Grand Marché, 37100 Tours</em>, et
+          <strong>RG.card</strong>, micro-entreprise basée à Tours.
+        </p>
+        <p>
+          Les deux entités agissent en qualité de co-organisateurs et assurent la mise en place du dispositif,
+          la gestion des participations, la détermination du gagnant et la remise du lot. Cette information est
+          fournie conformément à l’article L.111-1 du Code de la consommation, relatif à l’obligation
+          d’information préalable du consommateur.
+        </p>
+
+        <h2>Article 2 – Fondement juridique et nature de l’opération</h2>
+        <p>
+          Le jeu constitue une opération promotionnelle avec attribution d’un lot. Il est organisé dans le
+          respect des règles applicables aux pratiques commerciales loyales, issues notamment des articles
+          L.121-1 et L.121-2 du Code de la consommation, qui prohibent les pratiques trompeuses ou de nature
+          à induire le consommateur en erreur, ainsi que des dispositions du Code de la sécurité intérieure
+          relatives aux loteries (articles L.322-1 et suivants).
+        </p>
+        <p>
+          Il s’agit d’un mécanisme de <strong>code gagnant prédéterminé</strong> : l’attribution du lot ne
+          résulte pas d’un tirage au sort réalisé à l’issue de l’opération, mais de l’existence d’un code
+          unique déterminé à l’avance, intégré dans le dispositif technique avant la diffusion des QR codes.
+        </p>
+
+        <h2>Article 3 – Durée et fin de l’opération</h2>
+        <p>
+          Le jeu débute à compter de la mise à disposition des premières canettes comportant un QR code du jeu
+          chez Halles de Minuit et se poursuit jusqu’à ce que la totalité des QR codes prévus dans le cadre de
+          l’opération ait été distribuée ou remise, que ce soit lors d’un achat ou via la modalité de participation
+          prévue à l’article 6.
+        </p>
+        <p>
+          La fin du jeu est corrélée à l’épuisement de l’ensemble des QR codes participants. Les organisateurs
+          peuvent mentionner la clôture de l’opération sur leurs supports de communication (affiches, réseaux
+          sociaux, mini-site, etc.) dès que ce seuil est atteint.
+        </p>
+
+        <h2>Article 4 – Public autorisé</h2>
+        <p>
+          Le jeu est ouvert à toute personne physique résidant en France métropolitaine.
+          La participation est en principe réservée aux personnes majeures au jour de leur participation.
+        </p>
+        <p>
+          Les mineurs peuvent participer sous la responsabilité et avec l’accord exprès de leur représentant
+          légal. En cas de gain, le lot consistant en un virement bancaire de 100&nbsp;€ sera versé
+          exclusivement sur un compte bancaire ouvert au nom du représentant légal, ou sur un compte dont
+          celui-ci est titulaire ou co-titulaire. Les organisateurs peuvent demander tout justificatif utile
+          (pièce d’identité, preuve de l’autorité parentale, RIB).
+        </p>
+
+        <h2>Article 5 – Modalités de participation via QR code</h2>
+        <p>
+          Certaines canettes mises à disposition ou vendues par Halles de Minuit comportent un QR code permettant
+          d’accéder au mini-site du jeu. Le scan du QR code via un smartphone compatible permet d’enregistrer
+          une participation et d’afficher un message d’attente des résultats, jusqu’à la clôture de la
+          distribution des QR codes.
+        </p>
+        <p>
+          À l’issue de cette phase, les participants peuvent vérifier si leur code correspond ou non au
+          <strong>code gagnant prédéterminé</strong>, en scannant de nouveau le QR code ou en se connectant à
+          l’adresse indiquée. En fonction du cas, un message de gain ou de non-gain est alors affiché.
+        </p>
+        <p>
+          Chaque QR code est destiné à un usage unique dans le cadre du jeu. Toute tentative de duplication,
+          de modification ou d’utilisation frauduleuse peut entraîner l’invalidation de la participation.
+        </p>
+
+        <h2>Article 6 – Modalité de participation sans achat</h2>
+        <p>
+          Indépendamment de toute acquisition de produit, une voie de participation alternative est prévue
+          afin de permettre au public de prendre part au jeu sans effectuer d’achat. Ainsi, toute personne
+          souhaitant participer peut, pendant la durée de l’opération, se présenter en magasin Halles de Minuit
+          (58 Rue du Grand Marché, 37100 Tours) et solliciter l’attribution d’un code de participation.
+        </p>
+        <p>
+          Le code ainsi délivré est intégré dans le même dispositif technique que les QR codes présents sur
+          les canettes et bénéficie d’une chance de gain équivalente. Cette modalité de participation sans
+          achat vise à éviter que l’opération ne soit assimilée à une loterie prohibée impliquant un sacrifice
+          financier au sens de l’article L.322-1 du Code de la sécurité intérieure, et à se conformer à
+          l’exigence d’accès gratuit à l’opération pour les consommateurs.
+        </p>
+
+        <h2>Article 7 – Sélection et preuve du code gagnant prédéterminé</h2>
+        <p>
+          Avant la mise en circulation des QR codes, Halles de Minuit et RG.card déterminent conjointement,
+          de manière aléatoire, un code unique désigné comme « code gagnant prédéterminé ». Ce code est
+          enregistré dans le système et peut être associé à un identifiant technique interne (hash, numéro
+          de référence, horodatage, etc.).
+        </p>
+        <p>
+          Les organisateurs conservent les éléments de preuve nécessaires (fichier horodaté, journal interne,
+          capture, etc.) permettant d’attester de l’existence du code gagnant avant le lancement de l’opération.
+          La preuve de cette détermination anticipée peut être apportée par tout moyen, conformément aux
+          principes généraux du droit de la preuve.
+        </p>
+
+        <h2>Article 8 – Lot mis en jeu</h2>
+        <p>
+          Le lot attribué au participant déclaré gagnant consiste en un <strong>virement bancaire d’un montant
+          de 100&nbsp;€</strong>. Le gagnant devra fournir les informations bancaires nécessaires (identité,
+          IBAN, etc.) afin de permettre l’exécution du virement.
+        </p>
+        <p>
+          Le lot n’est ni cessible, ni échangeable, ni remboursable. Aucune contrepartie ou avantage complémentaire
+          ne pourra être exigé au-delà de ce qui est prévu par le présent règlement.
+        </p>
+
+        <h2>Article 9 – Annonce des résultats</h2>
+        <p>
+          Les résultats du jeu sont réputés accessibles une fois la totalité des QR codes prévus dans l’opération
+          distribués. À compter de ce moment, le participant dont le code correspond au code gagnant prédéterminé
+          voit s’afficher un message distinct l’informant de son gain et des modalités pratiques pour le recevoir.
+        </p>
+
+        <h2>Article 10 – Données personnelles</h2>
+        <p>
+          La simple consultation du mini-site et la vérification d’un QR code ne nécessitent pas, en principe,
+          la collecte de données personnelles identifiantes. En cas de gain, certaines informations (identité,
+          coordonnées bancaires, coordonnées de contact) pourront être demandées au gagnant afin de procéder
+          à la remise du lot.
+        </p>
+        <p>
+          Ces données sont utilisées exclusivement pour la gestion du jeu et la remise du lot et ne sont pas
+          conservées au-delà de la durée strictement nécessaire, sauf obligation légale contraire. Elles sont
+          traitées dans le respect de la réglementation applicable à la protection des données à caractère
+          personnel (RGPD).
+        </p>
+
+        <h2>Article 11 – Pratiques commerciales loyales et réclamations</h2>
+        <p>
+          Les organisateurs s’engagent à ce que le jeu soit mis en œuvre dans des conditions loyales et
+          transparentes, conformément aux articles L.121-1 et L.121-2 du Code de la consommation relatifs
+          aux pratiques commerciales déloyales et trompeuses. Notamment, l’existence de la modalité de
+          participation sans achat visée à l’article 6 assure que l’opération ne repose pas exclusivement
+          sur un sacrifice financier pour accéder à la possibilité de gain.
+        </p>
+        <p>
+          En cas de question ou de réclamation relative au jeu, les participants sont invités à s’adresser
+          en priorité à Halles de Minuit afin de rechercher une solution amiable. À défaut d’accord, tout
+          litige sera soumis aux juridictions françaises compétentes.
+        </p>
+
+        <p class="small-note">
+          Le présent règlement est établi à titre informatif afin de se conformer, autant que possible,
+          aux textes en vigueur. Il ne remplace pas un avis juridique personnalisé. Les organisateurs
+          demeurent tenus de respecter l’ensemble de la réglementation applicable aux opérations promotionnelles.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BANDEAU D’ACCEPTATION DU RÈGLEMENT -->
+  <div id="consent-banner" class="consent-banner">
+    <div class="consent-text">
+      En poursuivant, tu reconnais avoir pris connaissance du fonctionnement du jeu et de son règlement.
+      Pour consulter le détail des conditions, tu peux ouvrir le règlement complet à tout moment.
+    </div>
+    <div class="consent-actions">
+      <button class="consent-button" onclick="acceptReglement()">
+        J’ai lu et j’accepte le règlement du jeu
+      </button>
+    </div>
+  </div>
 </body>
 </html>
