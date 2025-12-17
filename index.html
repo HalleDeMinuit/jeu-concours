@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -196,20 +197,6 @@
       box-shadow: 0 0 8px rgba(163, 123, 255, 0.5);
     }
 
-    /* 🔹 Petit rond doré discret = signe distinctif du QR gagnant */
-    .winner-dot {
-      position: absolute;
-      bottom: 10px;
-      right: 14px;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ffe49a 0, #f6c453 55%, #b88224 100%);
-      box-shadow: 0 0 6px rgba(255, 210, 120, 0.7);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
     @media (max-width: 480px) {
       .card {
         padding: 24px 18px 20px;
@@ -283,9 +270,6 @@
 <body>
   <div class="wrapper">
     <div class="card">
-
-      <!-- 🔹 Petit rond doré = QR gagnant (seulement sur cette version) -->
-      <div class="winner-dot"></div>
 
       <div class="badge">
         <span class="badge-dot"></span>
